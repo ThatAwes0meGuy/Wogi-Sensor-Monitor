@@ -1,107 +1,131 @@
 import { useState } from "react";
 import {
-  LayoutDashboard,
-  Folder,
-  User,
-  Settings,
   ChevronDown,
   ChevronUp,
+  Globe,
+  Factory,
 } from "lucide-react";
 import clsx from "clsx";
 
-const menuItems = [
-  {
-    key: "dashboard",
-    label: "Dashboard",
-    icon: <LayoutDashboard className="w-5 h-5 text-indigo-500" />,
-    subItems: ["Overview", "Reports", "Analytics"],
-  },
-  {
-    key: "projects",
-    label: "Projects",
-    icon: <Folder className="w-5 h-5 text-pink-500" />,
-    subItems: ["Active", "Archived", "New"],
-  },
-  {
-    key: "users",
-    label: "Users",
-    icon: <User className="w-5 h-5 text-emerald-500" />,
-    subItems: ["All", "Roles", "Invites"],
-  },
-  {
-    key: "settings",
-    label: "Settings",
-    icon: <Settings className="w-5 h-5 text-yellow-500" />,
-    subItems: ["Profile", "Preferences", "Billing"],
-  },
-];
-
 const Sidebar = ({ collapsed }) => {
   const [openMenu, setOpenMenu] = useState(null);
-  const toggleMenu = (key) =>
+  const [selectedSite, setSelectedSite] = useState("Hariawan");
+  const [selectedLine, setSelectedLine] = useState("Distillery Power Plant");
+
+  const toggleMenu = (key) => {
     setOpenMenu((prev) => (prev === key ? null : key));
+  };
+
+  const siteOptions = ["Hariawan", "Sitapur", "Barabanki"];
+  const lineOptions = ["Distillery Power Plant", "Turbine", "Boiler"];
 
   return (
     <aside
       className={clsx(
-        "h-full border-r border-gray-200 bg-white shadow-sm transition-all duration-300 ease-in-out",
-        collapsed ? "w-20" : "w-64"
+        "h-full bg-white border-r border-gray-200 shadow-md transition-all duration-300 ease-in-out",
+        collapsed ? "w-20" : "w-80"
       )}
     >
       {/* Logo */}
-      <div className="p-6">
-        <h1
-          className={clsx(
-            "text-indigo-600 font-extrabold text-xl tracking-tight transition-opacity duration-300",
-            collapsed && "opacity-0"
-          )}
-        >
-          Wogix
-        </h1>
-        {collapsed && (
-          <div className="text-indigo-600 text-xl font-extrabold text-center">
-            W
-          </div>
+      <div className="p-6 py-6">
+        {!collapsed ? (
+          <h1 className="text-indigo-600 font-extrabold text-2xl tracking-tight">
+            Wogix
+          </h1>
+        ) : (
+          <div className="text-indigo-600 text-xl font-extrabold text-center">W</div>
         )}
       </div>
 
-      {/* Menu */}
-      <nav className="flex flex-col space-y-2 px-3 pb-6">
-        {menuItems.map(({ key, label, icon, subItems }) => (
-          <div key={key} className="text-sm">
-            <button
-              onClick={() => toggleMenu(key)}
-              className={clsx(
-                "w-full flex items-center justify-between px-3 py-2 rounded-lg text-gray-700 font-medium hover:bg-gray-100 transition",
-                collapsed && "justify-center"
-              )}
-            >
-              <span className="flex items-center gap-3">
-                {icon}
-                {!collapsed && <span>{label}</span>}
-              </span>
-              {!collapsed &&
-                (openMenu === key ? (
-                  <ChevronUp className="w-4 h-4 text-gray-400" />
-                ) : (
-                  <ChevronDown className="w-4 h-4 text-gray-400" />
-                ))}
-            </button>
-
-            {!collapsed && openMenu === key && (
-              <ul className="ml-9 mt-1 space-y-1 text-gray-600 text-sm">
-                {subItems.map((item, idx) => (
-                  <li
-                    key={idx}
-                    className="hover:text-indigo-600 cursor-pointer transition"
-                  >
-                    • {item}
-                  </li>
-                ))}
-              </ul>
-            )}
+      {/* Dropdown Menus */}
+      <nav className="flex flex-col gap-6 px-6 pb-6">
+        {/* Site Dropdown */}
+        <div>
+          <div className="flex items-center gap-2 text-xs text-gray-400 font-medium uppercase mb-1 tracking-wide">
+            <Globe className="w-4 h-4 text-indigo-500" />
+            {!collapsed && <span>Site</span>}
           </div>
-        ))}
+
+          {!collapsed && (
+            <div className="relative">
+              <button
+                onClick={() => toggleMenu("site")}
+                className="w-full flex items-center justify-between px-4 py-2 rounded-lg bg-indigo-50 text-indigo-700 font-semibold hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-indigo-300 text-sm"
+              >
+                <span>{selectedSite}</span>
+                {openMenu === "site" ? (
+                  <ChevronUp className="w-4 h-4" />
+                ) : (
+                  <ChevronDown className="w-4 h-4" />
+                )}
+              </button>
+              {openMenu === "site" && (
+                <ul className="absolute z-10 mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-48 overflow-y-auto">
+                  {siteOptions.map((site) => (
+                    <li
+                      key={site}
+                      className={clsx(
+                        "cursor-pointer px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 transition",
+                        site === selectedSite &&
+                          "bg-indigo-100 text-indigo-700 font-semibold"
+                      )}
+                      onClick={() => {
+                        setSelectedSite(site);
+                        setOpenMenu(null);
+                      }}
+                    >
+                      {site}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Line Dropdown */}
+        <div>
+          <div className="flex items-center gap-2 text-xs text-gray-400 font-medium uppercase mb-1 tracking-wide">
+            <Factory className="w-4 h-4 text-pink-500" />
+            {!collapsed && <span>Line</span>}
+          </div>
+
+          {!collapsed && (
+            <div className="relative">
+              <button
+                onClick={() => toggleMenu("line")}
+                className="w-full flex items-center justify-between px-4 py-2 rounded-lg bg-indigo-50 text-indigo-700 font-semibold hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-indigo-300 text-sm"
+              >
+                <span>{selectedLine}</span>
+                {openMenu === "line" ? (
+                  <ChevronUp className="w-4 h-4" />
+                ) : (
+                  <ChevronDown className="w-4 h-4" />
+                )}
+              </button>
+              {openMenu === "line" && (
+                <ul className="absolute z-10 mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-48 overflow-y-auto">
+                  {lineOptions.map((line) => (
+                    <li
+                      key={line}
+                      className={clsx(
+                        "cursor-pointer px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 transition",
+                        line === selectedLine &&
+                          "bg-indigo-100 text-indigo-700 font-semibold"
+                      )}
+                      onClick={() => {
+                        setSelectedLine(line);
+                        setOpenMenu(null);
+                      }}
+                    >
+                      {line}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          )}
+        </div>
       </nav>
     </aside>
   );

@@ -1,25 +1,36 @@
-import {useState} from 'react'
+import { useState } from 'react';
 
-import Header from './components/Header';
-import Sidebar from './components/Sidebar';
+import Navbar from './components/Header';
+import StatsGrid from './components/StatsGrid';
+import EquipmentPanel from './components/EquipmentPanel';
+import InsightsPanel from './components/InsightsPanel';
+import ChartGrid from './components/charts/ChartGrid';
+
 function App() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
   return (
-    <div className="flex h-screen w-full bg-gray-50 font-sans">
-      {/* Sidebar */}
-      <Sidebar collapsed={isSidebarCollapsed} />
+    <div className="flex flex-col h-screen w-full bg-gray-50 font-sans">
+      {/* Header */}
+      <Navbar onToggleSidebar={() => setIsSidebarCollapsed(!isSidebarCollapsed)} />
 
-      {/* Main Panel */}
-      <div className="flex flex-col flex-1">
-        <Header onToggleSidebar={() => setIsSidebarCollapsed(!isSidebarCollapsed)} />
+      {/* Main content layout */}
+      <div className="flex flex-1 overflow-hidden">
+        {/* Left Sidebar - Equipments */}
+        <div className="w-1/4 min-w-[260px] border-r overflow-y-auto">
+          <EquipmentPanel />
+        </div>
 
-        <main className="flex-1 overflow-y-auto p-6">
-          <h1 className="text-3xl font-bold text-gray-800">Main Content</h1>
-          <p className="text-gray-600 mt-4">
-            This is your production-ready dashboard layout with a top header and collapsible sidebar.
-          </p>
-        </main>
+        {/* Center - Stats + Charts */}
+        <div className="flex-1 overflow-y-auto border-r">
+          <StatsGrid />
+          <ChartGrid />
+        </div>
+
+        {/* Right Sidebar - Insights */}
+        <div className="w-1/5 min-w-[220px] max-w-[280px] overflow-y-auto">
+          <InsightsPanel />
+        </div>
       </div>
     </div>
   );
