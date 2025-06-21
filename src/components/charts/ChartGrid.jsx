@@ -1,5 +1,6 @@
-import DonutChart from "./DonutChart";
+import DonutChartCompact from "./DonutChart";
 import StackedBarChart from "./StackedBarChart";
+import HealthScoreLineChart from "./HealthScoreLineChart";
 
 const healthData = [
   { name: "Operational", value: 79.4, color: "#16a34a" },
@@ -12,6 +13,16 @@ const utilisationData = [
   { name: "Idle", value: 20.0, color: "#2563eb" },
   { name: "Unavailable", value: 2.9, color: "#6b7280" },
 ];
+
+const healthScoreData = [
+    { date: "5 Jun", score: 32 },
+    { date: "6 Jun", score: 50 },
+    { date: "7 Jun", score: 64 },
+    { date: "8 Jun", score: 78 },
+    { date: "9 Jun", score: 81.5 },
+    { date: "10 Jun", score: 91.2 },
+    { date: "11 Jun", score: 92 },
+  ];
 
 const trendData = [
   {
@@ -62,9 +73,9 @@ const trendData = [
 const ChartGrid = () => {
   return (
     <section className="flex flex-wrap gap-4 px-4 pb-6">
-        <div className="w-full sm:w-[48%]"><DonutChart title="Equipment Health Status" centerLabel="43%" data={healthData} /></div>
-        <div className="w-full sm:w-[48%]"><DonutChart title="Equipment Utilisation" centerLabel="43%" data={utilisationData} /></div>
-        <div className="w-full sm:w-[48%]"><StackedBarChart title="Area Health Status Trend" data={trendData} /></div>
+        <div className="w-full sm:w-[48%]"><DonutChartCompact title="Equipment Health Status" centerLabel="43%" data={healthData} /></div>
+        <div className="w-full sm:w-[48%]"><DonutChartCompact title="Equipment Utilisation" centerLabel="43%" data={utilisationData} /></div>
+        <div className="w-full sm:w-[48%]"><HealthScoreLineChart title="Area Health Score Trend" data={healthScoreData} /></div>
         <div className="w-full sm:w-[48%]"><StackedBarChart title="Area Health Score Trend" data={trendData} /></div>
     </section>
   );

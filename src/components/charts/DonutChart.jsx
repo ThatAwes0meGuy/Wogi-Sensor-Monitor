@@ -5,26 +5,42 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { useState } from "react";
 
-const DonutChart = ({ title, data, centerLabel = null }) => {
-  const renderCenterLabel = () =>
-    centerLabel ? (
+const DonutChartCompact = ({ title, data }) => {
+  const [activeIndex, setActiveIndex] = useState(null);
+
+  const onPieEnter = (_, index) => setActiveIndex(index);
+
+  const renderLabel = ({ cx, cy, midAngle, outerRadius, index }) => {
+    const RADIAN = Math.PI / 180;
+    const radius = outerRadius + 16;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+    const item = data[index];
+  
+    return (
       <text
-        x="50%"
-        y="50%"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        className="fill-gray-800 text-lg font-bold"
+        x={x}
+        y={y}
+        fill="#334155"
+        fontSize={11}
+        textAnchor={x > cx ? "start" : "end"}
+        dominantBaseline="central"
       >
-        {centerLabel}
+        {x > cx ? "←" : "→"} {item.name}
+        <tspan x={x} dy={14} fontWeight="500">
+          ({item.value.toFixed(1)}%)
+        </tspan>
       </text>
-    ) : null;
-
+    );
+  };
+  
   return (
-    <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition">
-      <h3 className="text-sm font-bold text-gray-800 mb-4">{title}</h3>
+    <div className="bg-white rounded-lg p-4 border border-gray-200 shadow-sm transition w-full">
+      <h3 className="text-sm font-bold text-gray-800 mb-3 text-center">{title}</h3>
 
-      <div className="h-64">
+      <div className="h-52">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
@@ -33,47 +49,30 @@ const DonutChart = ({ title, data, centerLabel = null }) => {
               nameKey="name"
               cx="50%"
               cy="50%"
-              innerRadius={70}
-              outerRadius={100}
-              paddingAngle={3}
-              isAnimationActive={true}
+              innerRadius="50%"
+              outerRadius="90%"
+              paddingAngle={2}
+              onMouseEnter={onPieEnter}
+              label={renderLabel}
               labelLine={false}
+              isAnimationActive
             >
               {data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.color} />
+                <Cell key={index} fill={entry.color} />
               ))}
             </Pie>
             <Tooltip
               formatter={(value, name) => [`${value.toFixed(1)}%`, name]}
               contentStyle={{
-                fontSize: '0.75rem',
-                borderRadius: '6px',
+                fontSize: "0.75rem",
+                borderRadius: "6px",
               }}
             />
-            {renderCenterLabel()}
           </PieChart>
         </ResponsiveContainer>
-      </div>
-
-      {/* Legend */}
-      <div className="mt-6 space-y-2 text-sm">
-        {data.map((item, i) => (
-          <div key={i} className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span
-                className="inline-block w-3 h-3 rounded-full"
-                style={{ backgroundColor: item.color }}
-              />
-              <span className="text-gray-600">{item.name}</span>
-            </div>
-            <span className="text-gray-800 font-semibold">
-              {item.value.toFixed(1)}%
-            </span>
-          </div>
-        ))}
       </div>
     </div>
   );
 };
 
-export default DonutChart;
+export default DonutChartCompact;
