@@ -6,6 +6,7 @@ import EquipmentPanel from './components/EquipmentPanel';
 import InsightsPanel from './components/InsightsPanel';
 import ChartGrid from './components/charts/ChartGrid';
 
+
 function App() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 

@@ -15,7 +15,7 @@ const Navbar = ({ selectedTab = "Realtime View" }) => {
       <div className="max-w-screen-2xl mx-auto px-6 py-3 flex items-center justify-between">
         {/* Logo */}
         <div className="text-2xl font-extrabold text-purple-700 tracking-tight">
-          Wogix
+          JSW
         </div>
 
         {/* Navigation Tabs */}
