@@ -1,6 +1,7 @@
 import { useState } from "react";
 import EquipmentCard from "./EquipmentCard";
 import { Search, SlidersHorizontal, ChevronDown } from "lucide-react";
+import { useNavigate } from "react-router";
 
 const siteOptions = ["Hariawan", "Sitapur", "Barabanki"];
 const lineOptions = ["Distillery Power Plant", "Turbine", "Boiler"];
@@ -60,6 +61,7 @@ const EquipmentPanel = () => {
   const [selectedSite, setSelectedSite] = useState("Hariawan");
   const [selectedLine, setSelectedLine] = useState("Distillery Power Plant");
 
+  const navigate = useNavigate()
   return (
     <section className="px-4 py-5 space-y-4">
       {/* Filter dropdowns */}
@@ -100,7 +102,7 @@ const EquipmentPanel = () => {
           <EquipmentCard
             key={i}
             {...equip}
-            onClick={() => alert(`Navigate to ${equip.name}`)}
+            onClick={() => navigate("/realtime-dashboard/fft")}
           />
         ))}
       </div>
