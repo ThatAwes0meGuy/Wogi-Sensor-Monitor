@@ -1,31 +1,46 @@
-const velocityAxes = [
-  { axis: "H", value: 2.71, unit: "mm/s", color: "bg-green-500" },
-  { axis: "V", value: 1.49, unit: "mm/s", color: "bg-yellow-500" },
-  { axis: "A", value: 2.89, unit: "mm/s", color: "bg-red-500" },
+import ReactSpeedometer from "react-d3-speedometer";
+
+const metrics = [
+  { label: "Velocity (H)", value: 2.71, unit: "mm/s", max: 12 },
+  { label: "Velocity (V)", value: 1.49, unit: "mm/s", max: 12 },
+  { label: "Velocity (A)", value: 2.89, unit: "mm/s", max: 12 },
+  { label: "Temperature", value: 36.56, unit: "°C", max: 80 },
+  { label: "Acceleration", value: 0.08, unit: "g", max: 2 },
+  { label: "Audio", value: 80.74, unit: "dB", max: 250 },
 ];
 
-const LiveValuesSection = () => {
-  return (
-    <section className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
-      <h4 className="text-xs font-bold text-gray-700 mb-3">Velocity (mm/s)</h4>
-      <div className="space-y-2">
-        {velocityAxes.map(({ axis, value, unit, color }) => (
-          <div key={axis} className="flex items-center gap-3 text-xs">
-            <span className="font-medium text-gray-500 w-4">{axis}</span>
-            <div className="flex-1 h-2.5 bg-gray-100 rounded-full overflow-hidden">
-              <div
-                className={`${color} h-full`}
-                style={{ width: `${Math.min(value * 20, 100)}%` }}
-              />
-            </div>
-            <span className="text-gray-700 font-semibold w-[60px] text-right">
-              {value} {unit}
-            </span>
+const LiveValuesSection = () => (
+  <section className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+    {/* Header */}
+    <div className="flex items-center justify-between mb-3">
+      <h4 className="text-sm font-semibold text-gray-800">Live Values</h4>
+      <p className="text-[11px] text-gray-400">• 23 Jun 2025 11:55 PM</p>
+    </div>
+
+    {/* Gauges Grid */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      {metrics.map((metric, index) => (
+        <div key={index} className="flex flex-col items-center text-center">
+          <ReactSpeedometer
+            value={metric.value}
+            maxValue={metric.max}
+            segments={3}
+            height={130}
+            width={160}
+            ringWidth={8}
+            needleColor="#374151"
+            segmentColors={["#22c55e", "#facc15", "#ef4444"]}
+            currentValueText={`${metric.value} ${metric.unit}`}
+            valueTextFontSize="11px"
+            customSegmentStops={[0, metric.max * 0.6, metric.max * 0.85, metric.max]}
+          />
+          <div className="text-[11px] text-gray-600 mt-1 font-medium">
+            {metric.label}
           </div>
-        ))}
-      </div>
-    </section>
-  );
-};
+        </div>
+      ))}
+    </div>
+  </section>
+);
 
 export default LiveValuesSection;

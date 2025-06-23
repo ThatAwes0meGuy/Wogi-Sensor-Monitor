@@ -1,23 +1,31 @@
 import TopOverview from "../components/TopOverview";
-import LiveValuesSection from "../components/LiveValuesSection";
-import LiveGaugesRow from "../components/LiveGaugesRow";
 // import TrendSection from "../components/TrendSection";
 import SidebarPanel from "../components/SidebarPanel";
+import LiveValuesSection from "../components/LiveValuesSection";
+import DataDrivenInsightsPanel from "../components/DataDrivenInsightsPanel";
+import TrendChartSection from "../components/TrendChartSection";
+import TopStats from "../components/TopStats";
 
 const RealtimeFFT = () => {
   return (
-    <div className="flex flex-col h-screen w-full bg-gray-50 font-sans">
-      {/* Main layout after navbar */}
-      <div className="flex flex-1 overflow-hidden">
-        {/* Main Content Panel */}
-        <div className="flex-1 overflow-y-auto px-6 py-4 space-y-6">
-          <TopOverview />
+    <div className="flex h-screen">
+      {/* Main Content Area */}
+      <div className="flex-1 overflow-y-auto bg-gray-50 px-6 py-4 space-y-6">
+        {/* 1. Top Status Cards */}
+        <TopStats />
+
+        {/* 2. Metrics Row: Live Values + Data Insights */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <LiveValuesSection />
-          <LiveGaugesRow />
-          {/* <TrendSection /> */}
+          <DataDrivenInsightsPanel />
         </div>
 
-        {/* Right Sidebar Panel */}
+        {/* 3. Trend Chart */}
+        <TrendChartSection />
+    </div>
+
+      {/* Sidebar on Right */}
+      <div className="w-[320px] border-l bg-white overflow-y-auto shadow-sm">
         <SidebarPanel />
       </div>
     </div>

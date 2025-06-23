@@ -12,7 +12,7 @@ const metrics = [
 const TopOverview = ({
   equipment = "Pump DE (AD3177)",
   location = "Distillery Power Plant",
-  lastUpdated = "9:50 AM",
+  lastUpdated = "9:50:26 AM",
 }) => {
   return (
     <section className="w-full px-6 pt-4 pb-3 space-y-3">
