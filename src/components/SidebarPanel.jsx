@@ -2,6 +2,7 @@ import { useState } from "react";
 import SidebarSection from "./SidebarSection";
 import { Info, ClipboardList, ActivitySquare, FileText, ChevronRight } from "lucide-react";
 import DiagnosisHoverCard from "./DiagnosisHoverCard";
+import InsightsSection from "./InsightsSection";
 
 
 const SidebarPanel = () => {
@@ -42,14 +43,8 @@ const SidebarPanel = () => {
       </SidebarSection>
 
       {/* Spectral Insights */}
-      <SidebarSection title="Spectral Insights" icon={<ActivitySquare className="w-4 h-4 text-sky-500" />}>
-        <div className="text-xs text-gray-600">3 active bands monitored across X/Y/Z axes.</div>
-        <button
-          onClick={() => alert("Open spectral modal")}
-          className="text-xs text-sky-600 font-medium mt-2 flex items-center gap-1 hover:underline"
-        >
-          View Full Bands <ChevronRight className="w-3 h-3" />
-        </button>
+      <SidebarSection>
+        <InsightsSection />
       </SidebarSection>
 
       {/* Documents */}
