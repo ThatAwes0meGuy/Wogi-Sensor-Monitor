@@ -58,10 +58,22 @@ const TrendChart = () => {
           silent: true,
           itemStyle: { opacity: 0.15 },
           data: [
-            [{ yAxis: 0, itemStyle: { color: "#d1fae5" } }, { yAxis: 4.5 }],
-            [{ yAxis: 4.5, itemStyle: { color: "#fef9c3" } }, { yAxis: 7.5 }],
-            [{ yAxis: 7.5, itemStyle: { color: "#fdba74" } }, { yAxis: 10.5 }],
-            [{ yAxis: 10.5, itemStyle: { color: "#fecaca" } }, { yAxis: 14 }],
+            [
+              { yAxis: 0, itemStyle: { color: "#34d399" } },     // darker green
+              { yAxis: 4.5 },
+            ],
+            [
+              { yAxis: 4.5, itemStyle: { color: "#facc15" } },   // darker yellow
+              { yAxis: 7.5 },
+            ],
+            [
+              { yAxis: 7.5, itemStyle: { color: "#fb923c" } },   // darker orange
+              { yAxis: 10.5 },
+            ],
+            [
+              { yAxis: 10.5, itemStyle: { color: "#f87171" } },  // darker red
+              { yAxis: 14 },
+            ],
           ],
         },
       },
