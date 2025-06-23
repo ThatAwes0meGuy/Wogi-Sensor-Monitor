@@ -1,24 +1,27 @@
 import { useState } from "react";
-import SidebarSection from "./SidebarSection";
 import { Info, ClipboardList, ActivitySquare, FileText, ChevronRight } from "lucide-react";
 import DiagnosisHoverCard from "./DiagnosisHoverCard";
 import InsightsSection from "./InsightsSection";
-
 
 const SidebarPanel = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
-    <aside className="w-[300px] min-w-[280px] max-w-[320px] border-l bg-white px-4 py-5 overflow-y-auto space-y-6 text-sm">
+    <aside className="w-[300px] min-w-[280px] max-w-[320px] border-l bg-white px-4 py-6 overflow-y-auto space-y-6 text-sm">
+      
       {/* Equipment Metadata */}
       <SidebarSection title="Equipment Info" icon={<Info className="w-4 h-4 text-indigo-500" />}>
-        <div className="text-gray-800 font-semibold">Pump DE (AD3177)</div>
-        <div className="text-xs text-gray-500 mb-1">Distillery Power Plant</div>
-        <div className="text-xs text-gray-700">Rated RPM: <span className="font-medium">N/A</span></div>
-        <div className="text-xs text-gray-700">Axis Mapping: X • Y • Z</div>
+        <div className="text-gray-900 font-bold text-base leading-snug">Pump DE (AD3177)</div>
+        <div className="text-xs text-gray-500 mb-2">Distillery Power Plant</div>
+        <div className="text-xs text-gray-600">
+          <span className="text-gray-500">Rated RPM:</span> <span className="font-medium">N/A</span>
+        </div>
+        <div className="text-xs text-gray-600">
+          <span className="text-gray-500">Axis Mapping:</span> X • Y • Z
+        </div>
       </SidebarSection>
 
-      {/* Limits / Thresholds */}
+      {/* Thresholds */}
       <SidebarSection title="Thresholds" icon={<ActivitySquare className="w-4 h-4 text-yellow-500" />}>
         <ThresholdItem label="Velocity" value="4.5 mm/s" />
         <ThresholdItem label="Acceleration" value="10.0–20.0 m/s²" />
@@ -28,21 +31,21 @@ const SidebarPanel = () => {
 
       {/* Diagnosis */}
       <SidebarSection title="Diagnosis" icon={<ClipboardList className="w-4 h-4 text-purple-600" />}>
-        <p className="text-xs text-gray-600 leading-snug">
+        <p className="text-xs text-gray-600 leading-snug mb-2">
           Previous fault diagnosed on 21 Jun. Review corrective action taken.
         </p>
         <DiagnosisHoverCard
           data={{
             observation: "Vibration values are increased at Motor DE and Gearbox bearings.",
             analysis: "FFT spectrum is showing 1x RPM at Motor & Gearbox bearing.",
-            recommendation: "Check the machine base frame and improve rigidity. Also check coupling alignment.",
+            recommendation:
+              "Check the machine base frame and improve rigidity. Also check coupling alignment.",
             updated: "02 Mar 2025 05:27 PM",
           }}
         />
-
       </SidebarSection>
 
-      {/* Spectral Insights */}
+      {/* Spectral Insights / Insights */}
       <SidebarSection>
         <InsightsSection />
       </SidebarSection>
@@ -63,7 +66,19 @@ const SidebarPanel = () => {
 const ThresholdItem = ({ label, value }) => (
   <div className="flex justify-between text-xs text-gray-700">
     <span className="text-gray-500">{label}</span>
-    <span className="font-medium">{value}</span>
+    <span className="font-semibold">{value}</span>
+  </div>
+);
+
+const SidebarSection = ({ title, icon, children }) => (
+  <div className="space-y-2 border-b pb-4">
+    {title && (
+      <div className="flex items-center gap-2 text-xs font-semibold text-gray-500 uppercase tracking-wide">
+        {icon}
+        {title}
+      </div>
+    )}
+    <div className="space-y-1">{children}</div>
   </div>
 );
 
