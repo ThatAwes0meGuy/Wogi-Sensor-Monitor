@@ -14,14 +14,16 @@ const RealtimeFFT = () => {
         {/* 1. Top Status Cards */}
         <TopStats />
 
-        {/* 2. Metrics Row: Live Values + Data Insights */}
+        {/* 2. Trend Chart */}
+        <TrendChartSection />
+
+
+        {/* 3. Metrics Row: Live Values + Data Insights */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <LiveValuesSection />
           <DataDrivenInsightsPanel />
         </div>
 
-        {/* 3. Trend Chart */}
-        <TrendChartSection />
     </div>
 
       {/* Sidebar on Right */}
