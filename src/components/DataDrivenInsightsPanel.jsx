@@ -1,37 +1,35 @@
 import SpectralHoverTable from "./SpectralHoverTable";
 
 const DataDrivenInsightsPanel = () => {
-  return (
-    <section className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm space-y-4">
-      <div className="flex items-center justify-between mb-1">
-        <h4 className="text-sm font-semibold text-gray-800">
+    return (
+      <section className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+        <h2 className="text-sm font-semibold text-gray-800 mb-2">
           Data Driven Insights
-        </h4>
-      </div>
-
-      {/* Health Score */}
-      <div className="text-sm flex items-center justify-between">
-        <span className="text-gray-500">Health Score</span>
-        <span className="font-bold text-green-600">92%</span>
-      </div>
-
-      {/* Deviation */}
-      <div className="text-xs text-right text-gray-400 -mt-2 mb-2">
-        +0.3% deviation from last 24h
-      </div>
-
-      {/* Fault Progression Index */}
-      <div className="text-sm flex items-center justify-between">
-        <span className="text-gray-500">Fault Progression Index</span>
-        <span className="font-bold text-red-600">0.27</span>
-      </div>
-
-      {/* Spectral Insights */}
-      <div className="text-sm">
-        <SpectralHoverTable />
-      </div>
-    </section>
-  );
-};
-
-export default DataDrivenInsightsPanel;
+        </h2>
+  
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div className="text-sm text-gray-600">
+            <span className="font-medium text-gray-700">Health Score:</span>{" "}
+            <span className="text-green-600 font-semibold">92%</span>
+            <span className="ml-1 text-xs text-gray-400">
+              (+0.3% from last 24h)
+            </span>
+          </div>
+  
+          <div className="text-sm text-gray-600">
+            <span className="font-medium text-gray-700">
+              Fault Progression Index:
+            </span>{" "}
+            <span className="text-red-500 font-semibold">0.27</span>
+          </div>
+  
+          <button className="text-sm text-indigo-600 font-medium hover:underline">
+            View Spectral Insights
+          </button>
+        </div>
+      </section>
+    );
+  };
+  
+  export default DataDrivenInsightsPanel;
+  

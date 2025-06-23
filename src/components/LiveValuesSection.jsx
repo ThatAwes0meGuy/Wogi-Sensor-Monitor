@@ -18,17 +18,19 @@ const LiveValuesSection = () => (
     </div>
 
     {/* Gauges Grid */}
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
       {metrics.map((metric, index) => (
         <div key={index} className="flex flex-col items-center text-center">
           <ReactSpeedometer
             value={metric.value}
             maxValue={metric.max}
             segments={3}
-            height={130}
-            width={160}
+            height={100}
+            width={140}
             ringWidth={8}
             needleColor="#374151"
+            textColor="#374151"
+            labelFontSize="10px"
             segmentColors={["#22c55e", "#facc15", "#ef4444"]}
             currentValueText={`${metric.value} ${metric.unit}`}
             valueTextFontSize="11px"
